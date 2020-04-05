@@ -4,7 +4,7 @@
   "description": "A sort of lite version of Facebook Instagram only for studying purpose - non profitable",
   "main": "webpack.base.config.js",
   "scripts": {
-    "start": "webpack-dev-server --host 0.0.0.0 --open --config webpack.dev.config.js",
+    "start": "concurrently \"npm run client:start\" \"npm run server:start\"",
     "build": "webpack --config webpack.prod.config.js",
     "client:start": "webpack-dev-server --host 0.0.0.0 --open --config webpack.dev.config.js",
     "server:start": "nodemon server"
