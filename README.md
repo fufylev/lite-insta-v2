@@ -19,15 +19,15 @@ this is a non-profitable application.
 * Server: Node.JS + Hapi.JS, MongoDB + Mongoose, GraphQL, Docker...
 
 ## 
-### Install:
+### Install
 Clone this [repository](https://github.com/fufylev/lite-insta-v2)
 
 Run this in terminal:\
-`cd lite-insta-v2`\
+`cd lite-insta-v2`
 
 Go to file `./server/.env`  and apply/change your DB setting
 
-then:\
+then run:\
 `yarn start` or `npm start`
 
 ##
