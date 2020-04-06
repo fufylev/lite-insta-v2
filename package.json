@@ -4,7 +4,10 @@
   "description": "A sort of lite version of Facebook Instagram only for studying purpose - non profitable",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon server"
+    "server": "nodemon server",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+
   },
   "repository": {
     "type": "git",

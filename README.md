@@ -31,7 +31,7 @@ Go to file `./server/.env`  and apply or change your DB setting
 
 then run:
 
-`yarn start` or `npm start`
+`yarn dev` or `npm dev`
 
 ##
 #### License
