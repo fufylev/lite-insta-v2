@@ -1,0 +1,7 @@
+.idea
+/.idea/
+.gitignore
+/.gitignore/
+node_modules
+/node_modules/
+/config/
