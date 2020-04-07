@@ -1,0 +1,49 @@
+@import '~mdbootstrap/css/bootstrap.min.css';
+@import './assets/scss/resources';
+@import './assets/scss/fonts.scss';
+
+html, body {
+  margin: 0!important;
+  padding: 0!important;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  //min-height: 100vh;
+  //background-color: rgba(var(--b3f, 250, 250, 250), 1);
+  color: #262626;
+}
+
+:root {
+  font-size: 14px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.container {
+  //width: 1070px!important;
+}
+
+.main-top {
+  margin-top: 80px;
+}
+
+html {
+  @media screen and (max-width: $lgWidth) {
+    font-size: $lgMainFontSize;
+  }
+  @media screen and (max-width: $mdWidth) {
+    font-size: $mdMainFontSize;
+  }
+  @media screen and (max-width: $smWidth) {
+    font-size: $smMainFontSize;
+
+  }
+  @media screen and (max-width: $xsWidth) {
+    font-size: $xsMainFontSize;
+  }
+}
