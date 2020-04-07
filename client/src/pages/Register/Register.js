@@ -1,21 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState } from 'react';
 import { MDBAlert, MDBBtn, MDBInput, MDBLink } from 'mdbreact';
 import { useHttp } from '../../hooks/http.hook';
 import { inject, observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 
 const Register = (props) => {
-  const history = useHistory();
-  const { isRegistered } = props.User;
   const { loading, request, error } = useHttp();
   const [form, setForm] = useState({ email: '', password: '' });
-  
-  useEffect(() => {
-    if (isRegistered) {
-      history.push('/auth')
-    }
-  }, [history, isRegistered])
 
   const onChangeHandler = event => {
     const { name } = event.target;
@@ -27,8 +18,7 @@ const Register = (props) => {
 
     try {
       const data = await request('http://localhost:5000/api/auth/register', 'POST', { ...form });
-      console.log(data);
-      props.User.register();
+      props.User.setUser(data.token, data.userId);
     } catch (e) {
       console.log(e);
     }
