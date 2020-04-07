@@ -1,5 +1,4 @@
 ## Lite Insta V2
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com)
 
 Init: ***Apr 5, 2020***
 
@@ -30,6 +29,10 @@ Run this in terminal:
 Go to file `./server/.env`  and apply or change your DB setting
 
 then run:
+
+`npm instal` and `npm run client:install`
+
+once installation has completed run:
 
 `yarn dev` or `npm dev`
 
