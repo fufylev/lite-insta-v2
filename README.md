@@ -6,7 +6,7 @@ This is my second attempt to create a sort of lite version of Instagram on my ow
 this is a non-profitable application.
 ##
 #### Stack:
-* **Client**: React + ***MobX*** (no Redux this time), MD Bootstrap, SASS, webpack...
+* **Client**: React + ***MobX*** (no Redux this time), MD Bootstrap, SASS
 * **Server**: Node.JS, MongoDB + Mongoose, ***GraphQL***, Docker...
 
 ##

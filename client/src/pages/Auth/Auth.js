@@ -1,9 +1,11 @@
+import './Auth.scss';
+
 import React, { useState } from 'react';
 import { MDBBtn, MDBInput, MDBLink, MDBAlert } from 'mdbreact';
-import { useHttp } from '../../hooks/http.hook';
 import { inject, observer } from 'mobx-react';
+import FacebookLogin from 'react-facebook-login';
 import PropTypes from 'prop-types';
-import './Auth.scss';
+import { useHttp } from '../../hooks/http.hook';
 
 const Auth = (props) => {
   const { loading, request, error } = useHttp();
@@ -24,6 +26,10 @@ const Auth = (props) => {
       console.log(e);
     }
   };
+
+  const responseFacebook = (response) => {
+    console.log(response);
+  }
 
   return (
     <div>
@@ -60,11 +66,18 @@ const Auth = (props) => {
             <MDBBtn type="submit" disabled={loading}>Login</MDBBtn>
           </div>
         </form>
-        <div md='12' className='mt-5 grey-text d-flex justify-content-center align-items-center'>
+        <div className='mt-5 grey-text d-flex justify-content-center align-items-center'>
           <span>Don't have an account?</span>
           <MDBLink to="/register" className='blue-text ml-1'>
             Sign Up
           </MDBLink>
+        </div>
+        <div className='mt-5 d-flex justify-content-center align-items-center'>
+          <FacebookLogin
+            appId="171337443925766"
+            fields="name,email,picture"
+            callback={responseFacebook}
+          />
         </div>
       </div>
     </div>

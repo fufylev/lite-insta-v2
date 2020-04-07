@@ -11,11 +11,11 @@ const Register = (props) => {
   const { loading, request, error } = useHttp();
   const [form, setForm] = useState({ email: '', password: '' });
   
-  useEffect(() => {
+  /*useEffect(() => {
     if (isRegistered) {
       history.push('/auth')
     }
-  }, [history, isRegistered])
+  }, [history, isRegistered])*/
 
   const onChangeHandler = event => {
     const { name } = event.target;
@@ -27,8 +27,7 @@ const Register = (props) => {
 
     try {
       const data = await request('http://localhost:5000/api/auth/register', 'POST', { ...form });
-      console.log(data);
-      props.User.register();
+      props.User.register(data.token, data.userId);
     } catch (e) {
       console.log(e);
     }

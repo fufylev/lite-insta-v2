@@ -26,8 +26,18 @@ class User {
     }))
   }
 
-  register () {
-    this.isRegistered = true
+  facebookLogin (data) {
+
+  }
+
+  register (jwtToken, id) {
+    this.token = jwtToken
+    this.userId = id
+    this.isAuthenticated = true
+
+    localStorage.setItem(this.storageName, JSON.stringify({
+      userId: id, token: jwtToken
+    }))
   }
 
   logout () {
@@ -54,6 +64,7 @@ class User {
 
 decorate(User, {
   login: action,
+  facebookLogin: action,
   checkUser: action,
   register: action,
   logout: action,
