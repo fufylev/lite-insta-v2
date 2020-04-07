@@ -20,15 +20,23 @@ const Auth = (props) => {
     event.preventDefault();
     try {
       const data = await request('http://localhost:5000/api/auth/login', 'POST', { ...form });
-      console.log(data);
-      props.User.login(data.token, data.userId);
+      props.User.setUser({userId: data.userId, token: data.token});
     } catch (e) {
       console.log(e);
     }
   };
 
   const responseFacebook = (response) => {
-    console.log(response);
+    console.log(response)
+    const { name, email, accessToken, userID } = response
+
+    props.User.facebookLogin({
+      avatar: response.picture.data.url,
+      name,
+      email,
+      accessToken,
+      userId: userID
+    })
   }
 
   return (

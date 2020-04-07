@@ -5,48 +5,43 @@ configure({ enforceActions: 'observed' })
 class User {
   constructor () {
     this.isAuthenticated = false
-    this.isRegistered = false
     this.ready = false
-    this.token = null
     this.name = null
-    this.email = ''
+    this.email = null
     this.userId = null
     this.avatar = null
     this.storageName = 'userData'
   }
 
-  login (jwtToken, id) {
-    this.token = jwtToken
-    this.userId = id
+  setUser ({userId, token, avatar, name, email}) {
     this.isAuthenticated = true
-    this.isRegistered = false
+    this.name = name
+    this.email = email
+    this.userId = userId
+    this.avatar = avatar
 
     localStorage.setItem(this.storageName, JSON.stringify({
-      userId: id, token: jwtToken
+      userId: userId, token: token, avatar: avatar, name: name, email: email
     }))
   }
 
-  facebookLogin (data) {
-
-  }
-
-  register (jwtToken, id) {
-    this.token = jwtToken
-    this.userId = id
+  facebookLogin ({ avatar, name, email, accessToken, userId }) {
     this.isAuthenticated = true
+    this.name = name
+    this.email = email
+    this.userId = userId
+    this.avatar = avatar
 
     localStorage.setItem(this.storageName, JSON.stringify({
-      userId: id, token: jwtToken
+      avatar: avatar, name: name, email: email, userId: userId, token: accessToken
     }))
   }
 
   logout () {
     this.isAuthenticated = false
-    this.isRegistered = false
     this.ready = false
-    this.token = null
     this.name = null
-    this.email = ''
+    this.email = null
     this.userId = null
     this.avatar = null
     localStorage.removeItem(this.storageName)
@@ -56,21 +51,21 @@ class User {
     const data = JSON.parse(localStorage.getItem(this.storageName))
 
     if (data && data.token) {
-      this.login(data.token, data.userId)
+      this.setUser({
+        userId: data.userId, token: data.token, avatar: data.avatar, name: data.name, email: data.email
+      })
+
     }
     this.ready = true
   }
 }
 
 decorate(User, {
-  login: action,
+  setUser: action,
   facebookLogin: action,
   checkUser: action,
-  register: action,
   logout: action,
   isAuthenticated: observable,
-  isRegistered: observable,
-  token: observable,
   name: observable,
   email: observable,
   avatar: observable,
