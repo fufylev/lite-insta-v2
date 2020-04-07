@@ -1,0 +1,6 @@
+{
+  "port": 5000,
+  "jwtSecret": "the doors are be open for those who are bold enough to knock",
+  "mongoUri": "",
+  "baseUrl": "http://localhost:5000"
+}

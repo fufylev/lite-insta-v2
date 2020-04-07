@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './App.scss'
+import React, { useEffect } from 'react'
+import PropTypes from 'prop-types'
+import { inject, observer } from 'mobx-react'
 
-function App() {
+import Header from './components/Header/Header'
+import SpinnerPage from './components/Loader/Loader'
+import { useRoutes } from './routes'
+
+function App (props) {
+  const { isAuthenticated, ready } = props.User
+
+  useEffect(() => {
+    props.User.checkUser()
+  })
+
+  const routes = useRoutes(isAuthenticated)
+
+  if (!ready) {
+    return <SpinnerPage />
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className=''>
+      { isAuthenticated && <Header /> }
+      <div className="container">
+        {routes}
+      </div>
     </div>
-  );
+  )
 }
 
-export default App;
+App.propTypes = {
+  User: PropTypes.object
+}
+
+export default inject('User')(observer(App))

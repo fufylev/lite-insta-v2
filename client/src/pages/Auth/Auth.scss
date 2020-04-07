@@ -1,0 +1,18 @@
+.form__custom {
+  max-width: 600px;
+  //min-width: 250px;
+  font-size: 16px;
+  p {
+    font-size: 35px!important;
+  }
+  &-input {
+    //font-size: 20px;
+    //width: 100%!important;
+  }
+}
+
+.form-group {
+  label {
+    //margin-left: 5px!important;
+  }
+}
