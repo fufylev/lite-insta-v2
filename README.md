@@ -2,11 +2,13 @@
 
 Init: ***Apr 5, 2020***
 
+***New: Apr 8, 2020 - decided to rewrite project on the TypeScript***
+
 This is my second attempt to create a sort of lite version of Instagram on my own only for study purpose - 
 this is a non-profitable application.
 ##
 #### Stack:
-* **Client**: React + ***MobX*** (no Redux this time), MD Bootstrap, SASS
+* **Client**: ***TypeScript***, React + ***MobX*** (no Redux this time), MD Bootstrap, SASS
 * **Server**: Node.JS, MongoDB + Mongoose, ***GraphQL***, Docker...
 
 ##
