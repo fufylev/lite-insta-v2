@@ -9,8 +9,8 @@ this is a non-profitable application.
 
 ##
 #### Stack:
-* **Client**: ***TypeScript***, React (hooks only), Materialize CSS, SASS
-* **Server**: Node.JS, MongoDB + Mongoose, ***GraphQL***, Docker...
+* **Client**: React (hooks only), *TypeScript*, Materialize CSS, SASS
+* **Server**: Node.JS, MongoDB + Mongoose, *GraphQL*, Docker...
 
 ##
 #### In this project I am planing to perform the following features:
