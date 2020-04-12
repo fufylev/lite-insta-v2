@@ -9,8 +9,7 @@ interface Props {
 }
 
 const App: React.FC<Props> = () => {
-  const auth = useSelector((state: AppState) => state.auth);
-  const { isAuthenticated } = auth;
+  const { isAuthenticated } = useSelector((state: AppState) => state.auth);
 
   const routes = useRoutes(isAuthenticated);
 
