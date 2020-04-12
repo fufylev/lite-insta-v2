@@ -4,9 +4,9 @@ import { ActionType } from './types';
 export interface InitialState {
   userId: string,
   token: string,
-  avatar: string,
-  name: string,
-  email: string,
+  avatar: string | undefined,
+  name: string | undefined,
+  email: string | undefined,
   isAuthenticated: boolean
 }
 
@@ -29,16 +29,21 @@ export const authReducer: Reducer<InitialState, DispatchAction> = (state = initi
       return {
         ...state,
         isAuthenticated: true,
-        token: action.payload.token || '',
-        userId: action.payload.userId || '',
+        ...action.payload
+      };
+
+    case ActionType.LoginWithFacebook:
+      return {
+        ...state,
+        isAuthenticated: true,
+        ...action.payload
       };
 
     case ActionType.Register:
       return {
         ...state,
         isAuthenticated: true,
-        token: action.payload.token || '',
-        userId: action.payload.userId || '',
+        ...action.payload
       };
 
     case ActionType.LogOut:

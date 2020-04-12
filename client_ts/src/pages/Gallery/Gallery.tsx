@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 function Gallery() {
   return (
@@ -9,6 +8,5 @@ function Gallery() {
   );
 }
 
-Gallery.propTypes = {};
 
 export default Gallery;

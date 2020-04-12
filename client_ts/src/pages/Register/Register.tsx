@@ -1,80 +1,74 @@
-import React, { ChangeEvent, useState } from 'react';
-import { MDBAlert, MDBBtn, MDBInput, MDBLink } from 'mdbreact';
+import React, { useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { AuthDispatcher } from '../../store/auth/actions';
 import { useHttp } from '../../hooks/http.hook';
-// import { inject, observer } from 'mobx-react';
-import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 
 interface Props {
-
 }
 
-const Register: React.FC<Props> = () =>  {
-  const { loading, request, error } = useHttp();
-  const [form, setForm] = useState({ email: '', password: '' });
+const Register: React.FC<Props> = () => {
+  const { request, error } = useHttp();
+  const dispatch = useDispatch();
+  const rootDispatcher = new AuthDispatcher(dispatch);
 
-  const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name } = event.target;
-    setForm({ ...form, [name]: event.target.value });
-  };
-
-  const submitHandler = async (event: ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault();
-
+  const submitHandler = async () => {
+    const email = setEmail.current!.value;
+    const password = setPassword.current!.value;
     try {
-      const data = await request('http://localhost:5000/api/auth/register', 'POST', { ...form });
-      // props.User.setUser(data.token, data.userId);
+      const data = await request('http://localhost:5000/api/auth/register', 'POST', { email, password });
+      rootDispatcher.register({ userId: data.userId, token: data.token });
     } catch (e) {
       console.log(e);
     }
   };
 
+  const setEmail = useRef<HTMLInputElement>(null);
+  const setPassword = useRef<HTMLInputElement>(null);
+
   return (
-    <div>
-      <div className='container mt-5 form__custom'>
-        <form onSubmit={() => submitHandler}>
-          <p className="h3 text-center mb-4">Register</p>
-          <div className="grey-text">
-            <MDBInput
-              name='email'
-              label="Email"
-              icon="envelope"
-              group
-              type="email"
-              validate error="wrong"
-              success="right"
-              value={form.email}
-              onChange={() => onChangeHandler}
-              className='form__custom-input'
+    <div className="row center form__custom">
+      <form className="col s12">
+        <h3>Register</h3>
+        <div className="row">
+          <div className="input-field col s12">
+            <i className="material-icons prefix">email</i>
+            <input
+              id="icon_prefix"
+              type="text"
+              className="validate"
+              ref={setEmail}
             />
-            <MDBInput
-              name='password'
-              label="Password"
-              icon="lock"
-              group
+            <label htmlFor="icon_prefix">Email</label>
+          </div>
+          <div className="input-field col s12">
+            <i className="material-icons prefix">lock</i>
+            <input
+              id="password"
               type="password"
-              validate
-              value={form.password}
-              onChange={() => onChangeHandler}
-              className='form__custom-input'
+              className="validate"
+              ref={setPassword}
             />
+            <label htmlFor="password">Password</label>
           </div>
-          {error && <MDBAlert color="danger" className='form-alert'>{error}</MDBAlert>}
-          <div className="text-center">
-            <MDBBtn type="submit" disabled={loading}>Register</MDBBtn>
-          </div>
-        </form>
-        <div className='mt-5 grey-text d-flex justify-content-center align-items-center'>
-          <span>Have an account?</span>
-          <MDBLink to="/auth" className='blue-text ml-1'>
-            Sign In
-          </MDBLink>
         </div>
+        {error && <div className='form-error'>{error}</div>}
+        <button
+          className="btn waves-effect waves-light btn-large"
+          onClick={(e) => {
+            e.preventDefault();
+            submitHandler();
+          }}
+        >
+          SUBMIT
+          <i className="material-icons right">person_add</i>
+        </button>
+      </form>
+      <div className="col s12 mt2r">
+        <span>Already have an account?</span> &ensp; <NavLink to='/auth'>Sign In</NavLink>
       </div>
     </div>
   );
-};
-
-Register.propTypes = {
 };
 
 export default Register;

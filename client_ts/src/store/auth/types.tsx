@@ -1,6 +1,6 @@
 export enum ActionType {
-  Login,
-  Register,
-  LogOut,
-  LoginWithFacebook,
+  Login = 'LOGIN',
+  Register = 'REGISTER',
+  LogOut = 'LOGOUT',
+  LoginWithFacebook = 'LOGIN_WITH_FACEBOOK',
 }
