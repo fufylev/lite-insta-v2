@@ -24,7 +24,7 @@ export class AuthDispatcher {
   });
 
   register = ({ userId, token }: { userId: string, token: string }) => this.dispatch({
-    type: ActionType.Login,
+    type: ActionType.Register,
     payload: { userId, token },
   });
 
