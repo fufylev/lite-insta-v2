@@ -1,18 +1,19 @@
 .form__custom {
   max-width: 600px;
-  //min-width: 250px;
-  font-size: 16px;
-  p {
-    font-size: 35px!important;
-  }
-  &-input {
-    //font-size: 20px;
-    //width: 100%!important;
-  }
 }
 
-.form-group {
-  label {
-    //margin-left: 5px!important;
-  }
+.facebook-login {
+  margin-top: 5rem;
+}
+
+.form-error {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #e95a8c;
+  background-color: #ffe9ee;
+  border-radius: 5px;
+  margin: 2rem 0;
+  font-size: 18px;
+  color: #e95a8c;
+  font-weight: bold;
 }
