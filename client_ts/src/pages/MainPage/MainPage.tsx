@@ -1,6 +1,5 @@
 import './Main.scss'
 import React from 'react'
-// import PropTypes from 'prop-types'
 
 function MainPage() {
   return (
@@ -9,7 +8,5 @@ function MainPage() {
     </div>
   );
 }
-
-MainPage.propTypes = {};
 
 export default MainPage;

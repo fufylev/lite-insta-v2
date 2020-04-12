@@ -5,9 +5,9 @@ import { ActionType } from './types';
 export interface IParams {
   userId: string,
   token: string,
-  avatar: string,
-  name: string,
-  email: string,
+  avatar: string | undefined,
+  name: string | undefined,
+  email: string | undefined,
 }
 
 export class AuthDispatcher {
@@ -28,9 +28,10 @@ export class AuthDispatcher {
     payload: { userId, token },
   });
 
-  logOut = () => this.dispatch({ type: ActionType.LogOut, payload: {} });
+  logout = () => this.dispatch({ type: ActionType.LogOut, payload: {} });
 
-  loginWithFacebook = ({avatar, name, email, token, userId}: IParams) => this.dispatch({
+  loginWithFacebook = ({ avatar, name, email, token, userId }: IParams) => this.dispatch({
     type: ActionType.LoginWithFacebook,
-    payload: {} });
+    payload: { avatar, name, email, token, userId },
+  });
 }

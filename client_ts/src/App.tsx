@@ -1,33 +1,25 @@
-import './App.scss'
-import React from 'react'
+import './App.scss';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { AppState } from './store';
 import { useRoutes } from './routes';
-import { useSelector} from "react-redux";
-import { InitialState } from './store/auth/reducer';
+import Header from './components/Header/Header';
 
 interface Props {
 }
 
-interface StateProps {
-  isAuthenticated: boolean
-}
-
 const App: React.FC<Props> = () => {
-  const {isAuthenticated} = useSelector<InitialState, StateProps>((state: InitialState) => {
-    return {
-      isAuthenticated: state.isAuthenticated,
-    }
-  });
+  const auth = useSelector((state: AppState) => state.auth);
+  const { isAuthenticated } = auth;
 
-  console.log(`isAuthenticated - ${isAuthenticated}`)
-
-  const isAuthenticated1: boolean = false;
-  const routes = useRoutes(isAuthenticated1);
+  const routes = useRoutes(isAuthenticated);
 
   return (
-    <div className="container">
+    <div>
+      { isAuthenticated && <Header /> }
       {routes}
     </div>
   );
 };
 
-export default App
+export default App;
