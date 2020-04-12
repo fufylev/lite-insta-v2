@@ -5,15 +5,16 @@ Init: ***Apr 5, 2020***
 This is my second attempt to create a sort of lite version of Instagram on my own only for study purpose - 
 this is a non-profitable application.
 
-*New: Apr 8, 2020 - decided to rewrite project on the TypeScript*
+*Feature: Apr 8, 2020 - decided to rewrite project on the TypeScript*
 
 ##
 #### Stack:
-* **Client**: ***TypeScript***, React + ***MobX*** (no Redux this time), MD Bootstrap, SASS
+* **Client**: ***TypeScript***, React (hooks only), Materialize CSS, SASS
 * **Server**: Node.JS, MongoDB + Mongoose, ***GraphQL***, Docker...
 
 ##
 #### In this project I am planing to perform the following features:
+* Authentication, register, login with Facebook ✅
 * Main user page with his/her followers & followings posts
 * Gallery page with posts of random users
 * User's settings page - update metadata

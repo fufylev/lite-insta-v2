@@ -10,6 +10,11 @@
 
 # production
 /build
+tsconfig.json
+yarn.lock
+.idea
+.gitignore
+/.gitignore/
 
 # misc
 .DS_Store
