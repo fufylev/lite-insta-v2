@@ -4,40 +4,17 @@ const Schema = mongoose.Schema;
 const pictureSchema = new Schema({
   image: { type: String },
   description: { type: String },
-  owner: {
-    id: {
-      type: String
-    },
-    username: {
-      type: String
-    }
-  },
+  created: { type: Date, default: new Date()  },
+  owner: { type: Schema.ObjectId, ref: 'User' },
   likes: [{
-    user: {
-      id: {
-        type: String
-      },
-      username: {
-        type: String
-      }
-    },
-    timestamp: { type: String },
+    user: { type: Schema.ObjectId, ref: 'User' },
+    timestamp: { type: Date, default: new Date() },
   }],
   comments: [{
-    user: {
-      id: {
-        type: String
-      },
-      username: {
-        type: String
-      },
-      avatar: {
-        type: String
-      }
-    },
+    user: { type: Schema.ObjectId, ref: 'User' },
     text: { type: String },
-    timestamp: { type: String },
-  }]
+    timestamp: { type: Date, default: new Date() },
+  }],
 });
 
 // Create a model

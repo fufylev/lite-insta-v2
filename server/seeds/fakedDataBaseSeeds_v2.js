@@ -5,7 +5,7 @@ const fs = require('fs');
 require('dotenv').config({ path: path.resolve(__dirname, '..', '.env') });
 const mongoose = require('mongoose')
 
-function rand(max = 40) {
+function rand(max = 10) {
     return Math.floor(Math.random() * max);
 }
 
@@ -45,7 +45,7 @@ async function importSeeds() {
 
 
     // faked users
-    const numberOfUsers = 35;
+    const numberOfUsers = 10;
     let users = [];
 
     for (let i = 0; i < numberOfUsers; i++) {
@@ -66,7 +66,7 @@ async function importSeeds() {
         user = await user.save();
 
         users.push(user);
-        console.log(`User - ${i} - ${user.username}`);
+        console.log(`User - ${i} - ${user}`);
     }
     // console.log(users);
     /*Object.keys(users).forEach(key => {
@@ -99,12 +99,11 @@ async function importSeeds() {
     });*/
     
     // faked pictures
-    const numberOfPictures = 500;
+    const numberOfPictures = 25;
     let pictures = [];
 
     for (let i = 0; i < numberOfPictures; i++) {
         const randOwnerData = users[rand(numberOfUsers)];
-        const randOwner = { id: randOwnerData.id, username: randOwnerData.username };
         const likes = [];
         const comments = [];
 
@@ -113,35 +112,36 @@ async function importSeeds() {
 
         for (let j = 0; j < likesCount; j++) {
             const randUserData = users[rand(numberOfUsers)];
-            const randUser = { id: randUserData.id, username: randUserData.username };
             likes.push({
-                user: randUser,
+                user: randUserData,
                 timestamp: faker.date.past(),
             });
         }
 
         for (let j = 0; j < commentsCount; j++) {
             const randUserData = users[rand(numberOfUsers)];
-            const randUser = { id: randUserData.id, username: randUserData.username, avatar: randUserData.avatar.thumbnail  };
             comments.push({
-                user: randUser,
+                user: randUserData,
                 text: faker.lorem.sentence(),
                 timestamp: faker.date.past(),
-                id: await generateID(),
             });
         }
 
         const picture = new Picture({
             image: await getImage(),
             description: faker.lorem.words(),
-            owner: randOwner,
+            created: faker.date.past(),
+            owner: randOwnerData,
             likes,
             comments,
         });
 
         await picture.save();
+        const user = await User.findById(randOwnerData.id);
+        await user.pictures.push(picture);
+        await user.save()
 
-        pictures = [...pictures, picture];
+        // pictures = [...pictures, picture];
         console.log(`${i} Created picture for ${randOwnerData.username}`);
     }
 
