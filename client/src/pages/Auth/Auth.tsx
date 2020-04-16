@@ -100,14 +100,14 @@ export default Auth;
 
 // import FacebookLogin, { ReactFacebookLoginInfo } from 'react-facebook-login';
 
-{/* <div className="col s12 facebook-login">
+/* <div className="col s12 facebook-login">
         <FacebookLogin
           appId="171337443925766"
           fields="name,email,picture"
           callback={(response) => responseFacebook(response)}
         />
       </div> */
-}
+
 
 /*  const responseFacebook = (response: ReactFacebookLoginInfo) => {
     const { name, email, accessToken, id, picture } = response;
