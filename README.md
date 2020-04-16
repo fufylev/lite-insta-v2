@@ -1,4 +1,4 @@
-## Lite Insta V2
+## Lite Insta V2 (*TypeScript*)
 
 Init: ***Apr 5, 2020***
 
@@ -9,7 +9,7 @@ this is a non-profitable application.
 
 ##
 #### Stack:
-* **Client**: React (hooks only), *TypeScript*, Materialize CSS, SASS
+* **Client**: React (hooks only), *TypeScript (custom hooks)*, Materialize CSS, SASS
 * **Server**: Node.JS, MongoDB + Mongoose, *GraphQL*, Docker...
 
 ##
