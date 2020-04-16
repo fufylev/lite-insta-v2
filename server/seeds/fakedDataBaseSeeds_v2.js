@@ -51,25 +51,22 @@ async function importSeeds() {
     for (let i = 0; i < numberOfUsers; i++) {
         const metadata = await getUser();
         let user = new User({
-            method: 'local',
-            local: {
-                name: metadata.name,
-                avatar: metadata.picture,
-                email: metadata.email,
-                dob: metadata.dob.date,
-                username: metadata.login.username,
-                gender: metadata.gender,
-                phone: metadata.phone,
-                cell: metadata.cell,
-                registered: metadata.registered.date,
-                password: 'Qwerty123',
-            },
+            name: metadata.name,
+            avatar: metadata.picture,
+            email: metadata.email,
+            dob: metadata.dob.date,
+            username: metadata.login.username,
+            gender: metadata.gender,
+            phone: metadata.phone,
+            cell: metadata.cell,
+            registered: metadata.registered.date,
+            password: 'Qwerty123',
         });
 
         user = await user.save();
 
         users.push(user);
-        console.log(`User - ${i} - ${user.local.username}`);
+        console.log(`User - ${i} - ${user.username}`);
     }
     // console.log(users);
     /*Object.keys(users).forEach(key => {
@@ -107,7 +104,7 @@ async function importSeeds() {
 
     for (let i = 0; i < numberOfPictures; i++) {
         const randOwnerData = users[rand(numberOfUsers)];
-        const randOwner = { id: randOwnerData.id, username: randOwnerData.local.username };
+        const randOwner = { id: randOwnerData.id, username: randOwnerData.username };
         const likes = [];
         const comments = [];
 
@@ -116,7 +113,7 @@ async function importSeeds() {
 
         for (let j = 0; j < likesCount; j++) {
             const randUserData = users[rand(numberOfUsers)];
-            const randUser = { id: randUserData.id, username: randUserData.local.username };
+            const randUser = { id: randUserData.id, username: randUserData.username };
             likes.push({
                 user: randUser,
                 timestamp: faker.date.past(),
@@ -125,7 +122,7 @@ async function importSeeds() {
 
         for (let j = 0; j < commentsCount; j++) {
             const randUserData = users[rand(numberOfUsers)];
-            const randUser = { id: randUserData.id, username: randUserData.local.username, avatar: randUserData.local.avatar.thumbnail  };
+            const randUser = { id: randUserData.id, username: randUserData.username, avatar: randUserData.avatar.thumbnail  };
             comments.push({
                 user: randUser,
                 text: faker.lorem.sentence(),

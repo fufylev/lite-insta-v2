@@ -7,15 +7,22 @@ import { PersistGate } from 'redux-persist/integration/react';
 import App from './App';
 import configureStore from './store';
 import 'materialize-css';
-
+import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from '@apollo/react-hooks';
 const {store, persistor} = configureStore();
+
+const client = new ApolloClient({
+  uri: 'https://localhost:8000/graphql',
+});
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <Router>
-          <App/>
+          <ApolloProvider client={client}>
+            <App/>
+          </ApolloProvider>
         </Router>
       </PersistGate>
     </Provider>

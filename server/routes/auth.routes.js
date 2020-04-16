@@ -34,18 +34,15 @@ router.post(
       }
 
       const { email, password } = req.body;
-      const candidate = await User.findOne({ 'local.email': email });
+      const candidate = await User.findOne({ email });
 
       if (candidate) {
         return res.status(400).json({ message: 'This email already in use' });
       }
 
       const user = new User({
-        method: 'local',
-        local: {
-          email: email,
-          password: password,
-        },
+        email: email,
+        password: password,
       });
       await user.save();
       const token = signToken(user);
@@ -76,7 +73,7 @@ router.post(
 
       const { email, password } = req.body;
 
-      const user = await User.findOne({ 'local.email': email });
+      const user = await User.findOne({ email });
 
       if (!user) {
         return res.status(400).json({ message: 'User is not found' });
