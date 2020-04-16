@@ -1,30 +1,50 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import { AuthDispatcher } from '../../store/auth/actions';
 import { useHttp } from '../../hooks/http.hook';
-import { NavLink } from 'react-router-dom';
 
-interface Props {
-}
+interface Props {}
 
 const Register: React.FC<Props> = () => {
   const { request, error } = useHttp();
   const dispatch = useDispatch();
   const rootDispatcher = new AuthDispatcher(dispatch);
 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const submitHandler = async () => {
-    const email = setEmail.current!.value;
-    const password = setPassword.current!.value;
+    const requestBody = {
+      query: `
+          mutation CreateUser($email: String!, $password: String!) {
+            createUser(userInput: {email: $email, password: $password}) {
+              _id
+              email
+              token
+            }
+          }
+        `,
+      variables: {
+        email: email,
+        password: password,
+      },
+    };
+
     try {
-      const data = await request('http://localhost:5000/api/auth/register', 'POST', { email, password });
-      rootDispatcher.register({ userId: data.userId, token: data.token });
+      const resData = await request('/graphql', 'POST', requestBody);
+      if (resData) {
+        const data = resData.data;
+        rootDispatcher.register({
+          userId: data.createUser._id,
+          token: data.createUser.token,
+          email: data.createUser.email,
+        });
+      }
     } catch (e) {
       console.log(e);
     }
   };
-
-  const setEmail = useRef<HTMLInputElement>(null);
-  const setPassword = useRef<HTMLInputElement>(null);
 
   return (
     <div className="row center form__custom">
@@ -37,7 +57,8 @@ const Register: React.FC<Props> = () => {
               id="icon_prefix"
               type="text"
               className="validate"
-              ref={setEmail}
+              value={email}
+              onChange={e => setEmail(e.target.value)}
             />
             <label htmlFor="icon_prefix">Email</label>
           </div>
@@ -47,7 +68,8 @@ const Register: React.FC<Props> = () => {
               id="password"
               type="password"
               className="validate"
-              ref={setPassword}
+              value={password}
+              onChange={e => setPassword(e.target.value)}
             />
             <label htmlFor="password">Password</label>
           </div>

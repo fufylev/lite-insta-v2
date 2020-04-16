@@ -18,14 +18,14 @@ export class AuthDispatcher {
     this.dispatch = dispatch;
   }
 
-  logon = ({ userId, token }: { userId: string, token: string }) => this.dispatch({
+  login = ({ userId, token, email }: { userId: string, token: string, email: string }) => this.dispatch({
     type: ActionType.Login,
-    payload: { userId, token },
+    payload: { userId, token, email },
   });
 
-  register = ({ userId, token }: { userId: string, token: string }) => this.dispatch({
+  register = ({ userId, token, email }: { userId: string, token: string, email: string }) => this.dispatch({
     type: ActionType.Register,
-    payload: { userId, token },
+    payload: { userId, token, email },
   });
 
   logout = () => this.dispatch({ type: ActionType.LogOut, payload: {} });

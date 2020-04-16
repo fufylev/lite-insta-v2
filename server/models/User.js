@@ -4,82 +4,59 @@ const Schema = mongoose.Schema;
 
 // Create a schema
 const userSchema = new Schema({
-  method: {
+  email: {
     type: String,
-    enum: ['local'],
-    required: true
+    lowercase: true,
+    unique: true
   },
-  local: {
-    email: {
-      type: String,
-      lowercase: true,
-      // unique: true
-    },
-    password: {
-      type: String,
-    },
-    avatar: {
-      type: Schema.Types.Mixed,
-      required: false
-    },
-    name: {
-      type: Schema.Types.Mixed,
-      required: false
-    },
-    username: {
-      type: String,
-      required: false
-    },
-    gender: {
-      type: String,
-      required: false
-    },
-    phone: {
-      type: String,
-      required: false
-    },
-    cell: {
-      type: String,
-      required: false
-    },
-    registered: {
-      type: String,
-      required: false
-    },
-    following: {
-      type: Array,
-      required: false
-    },
-    followers: {
-      type: Array,
-      required: false
-    }
-  }/*,
-  facebook: {
-    id: {
-      type: String
-    },
-    email: {
-      type: String,
-      lowercase: true,
-      unique: true
-    }
-  }*/
+  password: {
+    type: String,
+  },
+  avatar: {
+    type: Schema.Types.Mixed,
+    required: false
+  },
+  name: {
+    type: Schema.Types.Mixed,
+    required: false
+  },
+  username: {
+    type: String,
+    required: false
+  },
+  gender: {
+    type: String,
+    required: false
+  },
+  phone: {
+    type: String,
+    required: false
+  },
+  cell: {
+    type: String,
+    required: false
+  },
+  registered: {
+    type: String,
+    required: false
+  },
+  following: {
+    type: Array,
+    required: false
+  },
+  followers: {
+    type: Array,
+    required: false
+  }
 });
 
 userSchema.pre('save', async function (next) {
   try {
-    // console.log('entered')
-    if (this.method !== 'local') {
-      next()
-    }
-
     // Generate a salt
-    const salt = await bcrypt.genSalt(10);
+    const salt = await bcrypt.genSalt(12);
     // Generate a password hash (salt + hash)
     // Re-assign hashed version over original, plain text password
-    this.local.password = await bcrypt.hash(this.local.password, salt);
-    // console.log('exited')
+    this.password = await bcrypt.hash(this.password, salt);
     next()
   } catch (error) {
     next(error)
@@ -88,7 +65,7 @@ userSchema.pre('save', async function (next) {
 
 userSchema.methods.isValidPassword = async function (newPassword) {
   try {
-    return await bcrypt.compare(newPassword, this.local.password)
+    return await bcrypt.compare(newPassword, this.password)
   } catch (error) {
     throw new Error(error)
   }
@@ -97,5 +74,4 @@ userSchema.methods.isValidPassword = async function (newPassword) {
 // Create a model
 const User = mongoose.model('User', userSchema);
 
-// Export the model
 module.exports = User;

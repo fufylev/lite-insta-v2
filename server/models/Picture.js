@@ -4,16 +4,45 @@ const Schema = mongoose.Schema;
 const pictureSchema = new Schema({
   image: { type: String },
   description: { type: String },
-  owner: { type: Schema.Types.Mixed },
+  owner: {
+    id: {
+      type: String
+    },
+    username: {
+      type: String
+    }
+  },
   likes: [{
-    user: { type: Schema.Types.Mixed },
+    user: {
+      id: {
+        type: String
+      },
+      username: {
+        type: String
+      }
+    },
     timestamp: { type: String },
   }],
   comments: [{
-    user: { type: Schema.Types.Mixed },
+    user: {
+      id: {
+        type: String
+      },
+      username: {
+        type: String
+      },
+      avatar: {
+        type: String
+      }
+    },
     text: { type: String },
     timestamp: { type: String },
   }]
 });
 
-module.exports = mongoose.model('Picture', pictureSchema, 'pictures');
+// Create a model
+const Picture = mongoose.model('Picture', pictureSchema);
+
+module.exports = Picture;
+
+// module.exports = mongoose.model('Picture', pictureSchema, 'pictures');
